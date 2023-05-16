@@ -8,24 +8,20 @@ const Task = ({ taskObj, onComplete }) => {
     const formatDistanceResult = formatDistanceToNow(deadlineDate,
       {addSuffix: true,
       locale: tr},
-    );
+    );  
+   const bgClass = differenceInDays(deadlineDate ,new Date())<=3 ? "bg-[#ffd9d4]" : "bg-serkan-blue";
     
-   const bgClass = differenceInDays(deadlineDate ,new Date())<=3 ? "bg-[#ffd9d4]" : "bg-[#d2d5fd]";
-
-    
-    
-
   return (
-    <div className="task">
-      <h3>{taskObj.title}</h3>
-      <div className="deadline">son teslim: <span className={bgClass}>{formatDistanceResult}</span></div>
-      <p>{taskObj.description}</p>
+    <div className="p-6 bg-white rounded-md leading-normal mt-4 shadow-[0_4px_5px_0_rgb(0 0 0 / 10%)]">
+      <h3 className = "text-lg text-[#c8781a]">{taskObj.title}</h3>
+      <div className="text-xs pt-1">son teslim: <span className={`${bgClass} rounded-sm py-1 px-2 inline-block`} >{formatDistanceResult}</span></div>
+      <p className="pt-2 pb-3 text-[#444]">{taskObj.description}</p>
       <div>
         {taskObj.people.map((p) => (
-          <span className="pill" key={p}>{p}</span>
+          <span className="inline-block py-1.5 px-3 text-sm border-solid border-2 border-[#ccc] mr-1 mb-1.5 rounded-[30px]" key={p}>{p}</span>
         ))}
       </div>
-      {onComplete && <button onClick={() => onComplete(taskObj.id)}>Tamamlandı</button>}
+      {onComplete && <button className="block py-2 px-3 ml-auto bg-[#fecc91] shadow-[0_4px_5px_0_rgb(0 0 0 / 5%)] rounded-sm border-0 cursor-pointer"onClick={() => onComplete(taskObj.id)}>Tamamlandı</button>}
     </div>
   );
 };
